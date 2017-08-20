@@ -39,14 +39,30 @@ fire: function (guess) {
 
   for (var j = 0; j < this.numShips; j++) {
     var ship = this.ships[j];
-    var locations = ship.locations;
-    var index = locations.indexOf(guess);
+    var index = ship.locations.indexOf(guess);
     if (index >= 0){
       ship.hits[index] = "hit";
+      view.displayHit(guess);
+      view.displayMessage("Hit!");
+      if(this.isSunk(ship)) {
+        view.displayMessage("You sank my Battleship!");
+        this.shipsSunk++;
+      }
       return true;
-    }    
+    }
   }
+  view.displayMiss(guess);
+  view.displayMessage("You missed. Haaa Haaaa!");
   return false;
+},
+
+isSunk: function (ship) {
+  for (var j = 0; j <this.shipLength; j++) {
+    if (ship.hits[i] !== "hit"){
+      return false;
+    }
+  }
+  return true;
 }
 
 };
