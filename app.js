@@ -57,8 +57,8 @@ fire: function (guess) {
 },
 
 isSunk: function (ship) {
-  for (var j = 0; j <this.shipLength; j++) {
-    if (ship.hits[i] !== "hit"){
+  for (var j = 0; j < this.shipLength; j++) {
+    if (ship.hits[j] !== "hit"){
       return false;
     }
   }
@@ -66,12 +66,28 @@ isSunk: function (ship) {
 }
 
 };
+/*
+Testing if view works
+view.displayMiss("00");
+view.displayMiss("64");
+view.displayMiss("26");
+view.displayHit("41");
+view.displayHit("56");
+view.displayHit("32");
+view.displayMessage('Tap...tap...Is this thing on?');
+*/
 
-//Testing if view works
-// view.displayMiss("00");
-// view.displayMiss("64");
-// view.displayMiss("26");
-// view.displayHit("41");
-// view.displayHit("56");
-// view.displayHit("32");
-// view.displayMessage('Tap...tap...Is this thing on?');
+/*Testing model*/
+model.fire("53");
+
+model.fire("06");
+model.fire("16");
+model.fire("26");
+
+model.fire("34");
+model.fire("24");
+model.fire("44");
+
+model.fire("12");
+model.fire("11");
+model.fire("10");
