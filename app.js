@@ -18,16 +18,38 @@ var view = {
 
 };
 
-var ships = [{
-  locations: ["10", "20", "30"], hits: ["","",""]
+var model = {
+boardSize: 7,
+numShips: 3,
+shipLength: 3,
+shipsSunk: 0,
+
+ships: [{
+  locations: ["06", "16", "26"], hits: ["","",""]
 },
 
 {
-  locations: ["32", "33", "34"], hits: ["","",""]
+  locations: ["24", "34", "44"], hits: ["","",""]
 },
  {
-  locations: ["63", "64", "65"], hits: ["","hit",""]
-}];
+  locations: ["10", "11", "12"], hits: ["","",""]
+}],
+
+fire: function (guess) {
+
+  for (var j = 0; j < this.numShips; j++) {
+    var ship = this.ships[j];
+    var locations = ship.locations;
+    var index = locations.indexOf(guess);
+    if (index >= 0){
+      ship.hits[index] = "hit";
+      return true;
+    }    
+  }
+  return false;
+}
+
+};
 
 //Testing if view works
 // view.displayMiss("00");
