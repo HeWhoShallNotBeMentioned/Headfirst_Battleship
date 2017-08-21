@@ -66,6 +66,23 @@ isSunk: function (ship) {
 }
 
 };
+
+var controller = {
+  guesses: 0,
+
+  processGuess: function(guess) {
+    var alphabet = ["A","B","C","D","E","F","G"];
+
+    if (guess === null || guess.length !== 2) {
+      alert("Opps, please enter a letter and numbe on the board.");
+    } else {
+      var firstChar = guess.charAt(0);
+      var row = alphabet.indexOf(firstChar);
+    }
+  }
+};
+
+
 /*
 Testing if view works
 view.displayMiss("00");
@@ -78,16 +95,16 @@ view.displayMessage('Tap...tap...Is this thing on?');
 */
 
 /*Testing model*/
-model.fire("53");
-
-model.fire("06");
-model.fire("16");
-model.fire("26");
-
-model.fire("34");
-model.fire("24");
-model.fire("44");
-
-model.fire("12");
-model.fire("11");
-model.fire("10");
+// model.fire("53");
+//
+// model.fire("06");
+// model.fire("16");
+// model.fire("26");
+//
+// model.fire("34");
+// model.fire("24");
+// model.fire("44");
+//
+// model.fire("12");
+// model.fire("11");
+// model.fire("10");
