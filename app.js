@@ -41,6 +41,10 @@ var model = {
       var ship = this.ships[j];
       var index = ship.locations.indexOf(guess);
       if (index >= 0){
+        if(ship.hits[index] === "hit") {
+          view.displayMessage("You already shot at this location.");
+          return false;
+        }
         ship.hits[index] = "hit";
         view.displayHit(guess);
         view.displayMessage("Hit!");
@@ -52,7 +56,7 @@ var model = {
       }
     }
     view.displayMiss(guess);
-    view.displayMessage("You missed. Haaa Haaaa!");
+    view.displayMessage("You missed.");
     return false;
   },
 
