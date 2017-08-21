@@ -67,31 +67,57 @@ isSunk: function (ship) {
 
 };
 
+function parseGuess(guess) {
+  var alphabet = ["A","B","C","D","E","F","G"];
+
+  if (guess === null || guess.length !== 2) {
+    alert("Opps, please enter a letter and numbe on the board.");
+  } else {
+    var firstChar = guess.charAt(0).toUpperCase();
+    var row = alphabet.indexOf(firstChar);
+    var column = guess.charAt(1);
+
+    if (isNaN(row) || isNaN(column)) {
+      alert("Oops, that isn't on the board");
+    } else if (row < 0 || row >= model.boardSize || column < 0 || column >= model.boardSize) {
+      alert("Oops,that's off the board!");
+    } else {
+      return row + column;
+    }
+  }
+  return null;
+}
+
 var controller = {
   guesses: 0,
 
-  parseGuess: function(guess) {
-    var alphabet = ["A","B","C","D","E","F","G"];
-
-    if (guess === null || guess.length !== 2) {
-      alert("Opps, please enter a letter and numbe on the board.");
-    } else {
-      var firstChar = guess.charAt(0);
-      var row = alphabet.indexOf(firstChar);
-      var column = guess.charAt(1);
-
-      if (isNaN(row) || isNaN(column)) {
-        alert("Oops, that isn't on the board");
-      } else if (row < 0 || row >= model.boardSize || column < 0 || column >= model.boardSize) {
-        alert("Oops,that's off the board!");
-      } else {
-        return row + column;
+  processGuess: function(guess){
+    var location = parseGuess(guess);
+    if(location){
+      this.guesses++;
+      var hit = model.fire(location);
+      if (hit && model.shipsSunk === model.numShips) {
+        view.displayMessage("You sank all my battleships, in " + this.guesses + " guesses.");
+        formDisplay = document.getElementById("inputForm");
+        formDisplay.style.display = 'none';
       }
     }
-    return null;
   }
 };
 
+function handleFireButton () {
+  var guessInput = document.getElementById("guessInput");
+  var guess = guessInput.value;
+  controller.processGuess(guess);
+  guessInput.value = "";
+}
+
+function init () {
+  var fireButton = document.getElementById("fireButton");
+  fireButton.onclick = handleFireButton;
+}
+
+window.onload = init;
 
 /*
 Testing if view works
@@ -120,8 +146,13 @@ view.displayMessage('Tap...tap...Is this thing on?');
 // model.fire("10");
 
 //Testing parseGuess
-// console.log(controller.parseGuess("A0"));
-// console.log(controller.parseGuess("B6"));
-// console.log(controller.parseGuess("G3"));
-// console.log(controller.parseGuess("H0"));
-// console.log(controller.parseGuess("A7"));
+// controller.processGuess("A0");
+// controller.processGuess("B6");
+// controller.processGuess("A6");
+// controller.processGuess("C6");
+// controller.processGuess("C4");
+// controller.processGuess("D4");
+// controller.processGuess("E4");
+// controller.processGuess("B0");
+// controller.processGuess("B1");
+// controller.processGuess("B2");
