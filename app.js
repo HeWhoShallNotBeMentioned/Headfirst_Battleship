@@ -70,7 +70,7 @@ isSunk: function (ship) {
 var controller = {
   guesses: 0,
 
-  processGuess: function(guess) {
+  parseGuess: function(guess) {
     var alphabet = ["A","B","C","D","E","F","G"];
 
     if (guess === null || guess.length !== 2) {
@@ -82,10 +82,13 @@ var controller = {
 
       if (isNaN(row) || isNaN(column)) {
         alert("Oops, that isn't on the board");
-      } else if (row < 0 || row >= model.boardSize || column < 0 || column >= model.boardsize) {
+      } else if (row < 0 || row >= model.boardSize || column < 0 || column >= model.boardSize) {
         alert("Oops,that's off the board!");
+      } else {
+        return row + column;
       }
     }
+    return null;
   }
 };
 
@@ -115,3 +118,10 @@ view.displayMessage('Tap...tap...Is this thing on?');
 // model.fire("12");
 // model.fire("11");
 // model.fire("10");
+
+//Testing parseGuess
+// console.log(controller.parseGuess("A0"));
+// console.log(controller.parseGuess("B6"));
+// console.log(controller.parseGuess("G3"));
+// console.log(controller.parseGuess("H0"));
+// console.log(controller.parseGuess("A7"));
